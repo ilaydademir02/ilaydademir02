@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilayda Demir — Mathematics student</title>
+<meta name="description" content="Personal homepage of Ilayda, graduate mathematics student. CV, Thesis, notes, some useful links">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+<!-- Fonts: a humanist serif for headings, a highly readable sans for body text -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+<!-- MathJax: renders inline \( ... \) and display $$ ... $$ LaTeX notation -->
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ NAVIGATION ============ -->
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top">Y. NAME</a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav" id="siteNav" aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#notes">Research</a></li>
+        
+        <li><a href="#thesis">Thesis</a></li>
+        
+        
+        <li><a href="#documents">Documents</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section id="top" class="hero">
+    <div class="hero-inner">
+      <img class="hero-photo" src="assets/IMG_2030.jpg" alt="Photo credits to Alessandro" width="176" height="176">
+      <div class="hero-text">
+        <p class="eyebrow">Mathematics student · Researcher</p>
+        <!-- Ilayda Demir -->
+        <h1>Ilayda Demir</h1>
+        <!-- Hi! I am Ilayda. I am a graduate student in mathematics.   -->
+        <p class="hero-intro">
+          I like <span class="placeholder">[low dimensional topology]</span>, with a particular interest in
+          <span class="placeholder">[knot theory]</span>.
+        </p>
+        <div class="hero-links">
+          <a href="documents/CV.pdf">CV</a>
+          
+      
+          <a href="mailto:ilaydademir0302@gmail.com">Email</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section">
+    <div class="section-inner">
+      <h2><span class="section-number">01</span> About</h2>
+      <div class="prose">
+        <!-- REPLACE: 3-5 sentence academic biography. Do not leave placeholders in the live site. -->
+        <p>
+          I am a <span class="placeholder">[graduate mathematics student]</span>
+          currently in <span class="placeholder">[Paris]</span>. I completed my
+          <span class="placeholder">[Master's]</span> at <span class="placeholder">[Université Paris Cité]</span>
+          in <span class="placeholder">[2026]</span>.
+        </p>
+        <p>
+          My mathematical interests lie in <span class="placeholder">[low dimensional topology]</span>. More specifically, I am interested in
+          <span class="placeholder">[knot theory]</span>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+      
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section alt">
+    <div class="section-inner">
+      <h2><span class="section-number">08</span> Contact</h2>
+      <div class="contact-grid">
+        <div>
+          <p class="contact-label">Email</p>
+          <p><a href="mailto:ilaydademir0302@gmail.com">ilaydademir0302@gmail.com</a></p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; <span id="year"></span> Ilayda Demir. Built as a static site for GitHub Pages.</p>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
