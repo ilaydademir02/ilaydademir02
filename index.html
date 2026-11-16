@@ -1,18 +1,644 @@
-.hero-links {
-  align-items: center;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.hero-links .home-cv {
-  display: inline-block;
-  padding: 0.65rem 1rem;
-  border: 1px solid var(--accent);
-  border-radius: 4px;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-}
+  <title>Ilayda Demir — Mathematics student</title>
+  <meta name="description"
+        content="Personal homepage of Ilayda Demir, graduate mathematics student. CV, theses, notes, and paintings.">
 
-.hero-links .home-cv:hover {
-  background: var(--accent-muted);
-}
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ilayda Demir",
+    "url": "https://ilaydademir02.github.io/ilaydademir02/",
+    "jobTitle": "Mathematics student",
+    "sameAs": [
+      "https://math.ethz.ch/news-and-events/events/research-seminars/geometry-graduate-colloquium.html"
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['$$', '$$']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+          defer></script>
+
+  <!-- Select the page before displaying its content. -->
+  <script>
+    (() => {
+      const pages = [
+        'home', 'notes', 'thesis', 'documents',
+        'contact', 'paintings', 'links'
+      ];
+
+      const requested =
+        new URLSearchParams(location.search).get('page') ||
+        location.hash.slice(1);
+
+      document.documentElement.dataset.page =
+        pages.includes(requested) ? requested : 'home';
+    })();
+  </script>
+
+  <style>
+    /* Display only the selected page. */
+    main > section {
+      display: none;
+    }
+
+    html[data-page="home"] #home,
+    html[data-page="notes"] #notes,
+    html[data-page="thesis"] #thesis,
+    html[data-page="documents"] #documents,
+    html[data-page="contact"] #contact,
+    html[data-page="paintings"] #paintings,
+    html[data-page="links"] #links {
+      display: block;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    /* Navigation */
+    .header-inner {
+      gap: 1.5rem;
+    }
+
+    .brand {
+      white-space: nowrap;
+    }
+
+    .site-nav ul {
+      gap: 1.1em;
+    }
+
+    .site-nav a[aria-current="page"] {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* Home CV button */
+    .hero-links {
+      align-items: center;
+    }
+
+    .hero-links .home-cv {
+      display: inline-block;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .hero-links .home-cv:hover {
+      background: var(--accent-muted);
+    }
+
+    /* Notes and thesis cards */
+    .thesis-card + .thesis-card {
+      margin-top: 1.25rem;
+    }
+
+    /* Paintings gallery */
+    .paintings-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2rem;
+    }
+
+    .painting-item {
+      margin: 0;
+      min-width: 0;
+    }
+
+    .painting-open {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 1px solid var(--border);
+      background: var(--background);
+      cursor: zoom-in;
+    }
+
+    .painting-open img {
+      display: block;
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+    }
+
+    .painting-item figcaption {
+      margin-top: 0.6rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Enlarged painting overlay */
+    .lightbox {
+      width: min(1100px, 96vw);
+      max-width: 96vw;
+      max-height: 96dvh;
+      padding: 3.5rem 1rem 1rem;
+      border: 0;
+      border-radius: 4px;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    .lightbox::backdrop {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .lightbox img {
+      display: block;
+      width: 100%;
+      height: 75dvh;
+      object-fit: contain;
+    }
+
+    .lightbox p {
+      text-align: center;
+      margin: 0.75rem 0 0;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--border);
+      background: var(--background);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+    }
+
+    body:has(.lightbox[open]) {
+      overflow: hidden;
+    }
+
+    @media (min-width: 761px) and (max-width: 1100px) {
+      .header-inner {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .site-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .paintings-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .painting-open img {
+        height: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="?page=home">Ilayda Demir</a>
+
+      <button class="nav-toggle"
+              id="navToggle"
+              aria-expanded="false"
+              aria-controls="siteNav"
+              aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <ul>
+          <li><a href="?page=home">Home</a></li>
+          <li><a href="?page=notes">Notes</a></li>
+          <li><a href="?page=thesis">Master's theses</a></li>
+          <li><a href="?page=documents">Documents</a></li>
+          <li><a href="?page=contact">Contact</a></li>
+          <li><a href="?page=paintings">Paintings Gallery</a></li>
+          <li><a href="?page=links">Links</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+
+    <!-- HOME -->
+    <section id="home" class="hero">
+      <div class="hero-inner">
+        <img class="hero-photo"
+             src="assets/IMG_2030.jpg"
+             alt="Photo credits to Alessandro"
+             width="176"
+             height="176">
+
+        <div class="hero-text">
+          <p class="eyebrow">Mathematics student</p>
+          <h1>Ilayda Demir</h1>
+
+          <p class="hero-intro">
+            Hi! I am Ilayda. I am a graduate student in mathematics.
+            I obtained my Bachelor's and Master's degrees from
+            Université Paris Cité.
+            I am curious about low dimensional topology and in particular
+            I enjoy topics from knot theory and applications.
+            Currently I am looking for a PhD position (❀❛ ֊ ❛„)♡
+          </p>
+
+          <div class="hero-links">
+            <a class="home-cv" href="documents/CV.pdf">
+              View CV (PDF)
+            </a>
+            <a href="mailto:ilaydademir0302@gmail.com">Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTES -->
+    <section id="notes" class="section alt" aria-labelledby="notes-title">
+      <div class="section-inner">
+        <h1 id="notes-title">Notes</h1>
+
+        <div class="thesis-card">
+          <h2 class="thesis-title">Braids and torus knots</h2>
+          <p class="thesis-meta">Notes on braids for myself</p>
+          <a class="thesis-download" href="documents/BRAIDS.pdf">
+            Download document (PDF)
+          </a>
+        </div>
+
+        <div class="thesis-card">
+          <h2 class="thesis-title">More on Khovanov homology</h2>
+          <p class="thesis-meta">More notes on Khovanov homology</p>
+          <a class="thesis-download"
+             href="documents/Lee_structure_theorem.pdf">
+            Download document (PDF)
+          </a>
+        </div>
+
+        <div class="thesis-card">
+          <h2 class="thesis-title">“Tresse”</h2>
+          <p class="thesis-meta">A poem</p>
+          <a class="thesis-download"
+             href="documents/tresses_poem%20%281%29.pdf">
+            Download document (PDF)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MASTER'S THESES -->
+    <section id="thesis" class="section alt" aria-labelledby="thesis-title">
+      <div class="section-inner">
+        <h1 id="thesis-title">Master's theses</h1>
+
+        <div class="thesis-card">
+          <h2 class="thesis-title">
+            Khovanov Homology and the Rasmussen invariant
+          </h2>
+          <p class="thesis-meta">2nd year Master's thesis</p>
+          <a class="thesis-download"
+             href="documents/ILAYDA_THESIS_compressed.pdf">
+            Download thesis (PDF)
+          </a>
+        </div>
+
+        <div class="thesis-card">
+          <h2 class="thesis-title">
+            C*-algebras and an application to groups (in French)
+          </h2>
+          <p class="thesis-meta">1st year Master's thesis</p>
+          <a class="thesis-download" href="documents/THESIS1.pdf">
+            Download thesis (PDF)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCUMENTS -->
+    <section id="documents" class="section alt"
+             aria-labelledby="documents-title">
+      <div class="section-inner">
+        <h1 id="documents-title">Documents</h1>
+
+        <ul class="doc-list">
+          <li>
+            <a href="documents/CV.pdf">CV (PDF)</a>
+          </li>
+          <li>
+            <a href="documents/ILAYDA_THESIS_compressed.pdf">
+              Khovanov Homology and the Rasmussen invariant (PDF)
+            </a>
+          </li>
+          <li>
+            <a href="documents/THESIS1.pdf">
+              C*-algebras and an application to groups (PDF)
+            </a>
+          </li>
+          <li>
+            <a href="documents/BRAIDS.pdf">
+              Braids and torus knots (PDF)
+            </a>
+          </li>
+          <li>
+            <a href="documents/Lee_structure_theorem.pdf">
+              More on Khovanov homology (PDF)
+            </a>
+          </li>
+          <li>
+            <a href="documents/tresses_poem%20%281%29.pdf">
+              “Tresse” (PDF)
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section alt"
+             aria-labelledby="contact-title">
+      <div class="section-inner">
+        <h1 id="contact-title">Contact</h1>
+
+        <div class="contact-grid">
+          <div>
+            <p class="contact-label">Email</p>
+            <p>
+              <a href="mailto:ilaydademir0302@gmail.com">
+                ilaydademir0302@gmail.com
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAINTINGS GALLERY -->
+    <section id="paintings" class="section alt"
+             aria-labelledby="paintings-title">
+      <div class="section-inner">
+        <h1 id="paintings-title">Paintings Gallery</h1>
+        <p class="section-lede">Click a painting to enlarge it.</p>
+
+        <div class="paintings-gallery">
+
+          <figure class="painting-item">
+            <button type="button"
+                    class="painting-open"
+                    aria-label="Enlarge painting 1"
+                    aria-haspopup="dialog"
+                    aria-controls="paintingLightbox">
+              <img src="assets/painting1.jpg"
+                   alt="Painting 1 by Ilayda Demir"
+                   loading="lazy">
+            </button>
+            <figcaption>
+              <span>2026 · Oil on canvas</span>
+            </figcaption>
+          </figure>
+
+          <figure class="painting-item">
+            <button type="button"
+                    class="painting-open"
+                    aria-label="Enlarge painting 2"
+                    aria-haspopup="dialog"
+                    aria-controls="paintingLightbox">
+              <img src="assets/painting2.jpg"
+                   alt="Painting 2 by Ilayda Demir"
+                   loading="lazy">
+            </button>
+            <figcaption>
+              <span>2026 · Oil on canvas</span>
+            </figcaption>
+          </figure>
+
+          <figure class="painting-item">
+            <button type="button"
+                    class="painting-open"
+                    aria-label="Enlarge painting 3"
+                    aria-haspopup="dialog"
+                    aria-controls="paintingLightbox">
+              <img src="assets/painting3.jpg"
+                   alt="Painting 3 by Ilayda Demir"
+                   loading="lazy">
+            </button>
+            <figcaption>
+              <span>2026 · Dry pastel on paper</span>
+            </figcaption>
+          </figure>
+
+          <figure class="painting-item">
+            <button type="button"
+                    class="painting-open"
+                    aria-label="Enlarge painting 4"
+                    aria-haspopup="dialog"
+                    aria-controls="paintingLightbox">
+              <img src="assets/painting4.jpg"
+                   alt="Painting 4 by Ilayda Demir"
+                   loading="lazy">
+            </button>
+            <figcaption>
+              <span>2026 · Oil on canvas</span>
+            </figcaption>
+          </figure>
+
+          <figure class="painting-item">
+            <button type="button"
+                    class="painting-open"
+                    aria-label="Enlarge painting 5"
+                    aria-haspopup="dialog"
+                    aria-controls="paintingLightbox">
+              <img src="assets/painting5.jpg"
+                   alt="Painting 5 by Ilayda Demir"
+                   loading="lazy">
+            </button>
+            <figcaption>
+              <span>2025 · Acrylic on canvas</span>
+            </figcaption>
+          </figure>
+
+          <figure class="painting-item">
+            <button type="button"
+                    class="painting-open"
+                    aria-label="Enlarge painting 6"
+                    aria-haspopup="dialog"
+                    aria-controls="paintingLightbox">
+              <img src="assets/painting6.jpg"
+                   alt="Painting 6 by Ilayda Demir"
+                   loading="lazy">
+            </button>
+            <figcaption>
+              <span>2026 · Acrylic on canvas</span>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- LINKS -->
+    <section id="links" class="section alt" aria-labelledby="links-title">
+      <div class="section-inner">
+        <h1 id="links-title">Some links</h1>
+
+        <ul class="links-list">
+          <li>
+            <a href="https://sites.google.com/site/lowdimtopologyconferences/">
+              Conferences in LDT
+            </a>
+          </li>
+          <li>
+            <a href="https://alessandrofenu.github.io/homotopy-game/">
+              Little quiz for fun by Alessandro
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ENLARGED PAINTING -->
+  <dialog class="lightbox"
+          id="paintingLightbox"
+          aria-label="Enlarged painting"
+          aria-describedby="lightboxCaption">
+    <button type="button" class="lightbox-close" autofocus>
+      Close ✕
+    </button>
+    <img id="lightboxImage" alt="">
+    <p id="lightboxCaption"></p>
+  </dialog>
+
+  <footer class="site-footer">
+    <p>
+      &copy; <span id="year"></span> Ilayda Demir.
+      Built as a static site for GitHub Pages.
+    </p>
+  </footer>
+
+  <!-- Existing mobile navigation and footer year -->
+  <script src="script.js" defer></script>
+
+  <script>
+    (() => {
+      const labels = {
+        home: 'Home',
+        notes: 'Notes',
+        thesis: "Master's theses",
+        documents: 'Documents',
+        contact: 'Contact',
+        paintings: 'Paintings Gallery',
+        links: 'Links'
+      };
+
+      function updatePage() {
+        const requested =
+          new URLSearchParams(location.search).get('page') ||
+          location.hash.slice(1);
+
+        const page = Object.hasOwn(labels, requested)
+          ? requested
+          : 'home';
+
+        document.documentElement.dataset.page = page;
+        document.title = labels[page] + ' — Ilayda Demir';
+
+        document.querySelectorAll('.site-nav a').forEach(link => {
+          if (link.getAttribute('href') === '?page=' + page) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      updatePage();
+
+      // Support old bookmarks such as #paintings.
+      window.addEventListener('hashchange', updatePage);
+
+      const dialog = document.getElementById('paintingLightbox');
+      const image = document.getElementById('lightboxImage');
+      const caption = document.getElementById('lightboxCaption');
+
+      document.querySelectorAll('.painting-open').forEach(button => {
+        button.addEventListener('click', () => {
+          const thumbnail = button.querySelector('img');
+          const details = button
+            .closest('figure')
+            .querySelector('figcaption');
+
+          image.src = thumbnail.src;
+          image.alt = thumbnail.alt;
+          caption.textContent = details.textContent.trim();
+
+          dialog.showModal();
+        });
+      });
+
+      dialog.querySelector('.lightbox-close').addEventListener(
+        'click',
+        () => dialog.close()
+      );
+
+      // Close when clicking outside the dialog.
+      dialog.addEventListener('click', event => {
+        const bounds = dialog.getBoundingClientRect();
+
+        if (
+          event.clientX < bounds.left ||
+          event.clientX > bounds.right ||
+          event.clientY < bounds.top ||
+          event.clientY > bounds.bottom
+        ) {
+          dialog.close();
+        }
+      });
+
+      // Escape also closes the native dialog.
+    })();
+  </script>
+</body>
+</html>
